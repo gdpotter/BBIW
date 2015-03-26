@@ -115,3 +115,7 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+tomcat.deploy.username="bbiw-deploy"
+tomcat.deploy.password="eD6aNxJg"
+tomcat.deploy.url="http://xena.cse.lehigh.edu:8080/manager/text"

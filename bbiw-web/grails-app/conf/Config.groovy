@@ -119,3 +119,7 @@ log4j.main = {
 tomcat.deploy.username="bbiw-deploy"
 tomcat.deploy.password="eD6aNxJg"
 tomcat.deploy.url="http://xena.cse.lehigh.edu:8080/manager/text"
+
+
+//Solr config
+solr.url="http://xena.cse.lehigh.edu:8983/solr/bbiw"

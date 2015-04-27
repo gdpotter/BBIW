@@ -47,6 +47,13 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
+
+        runtime 'org.apache.solr:solr-solrj:5.1.0'
+        runtime 'org.apache.httpcomponents:httpcore:4.4.1'
+        runtime 'org.apache.httpcomponents:httpclient:4.4.1'
+        runtime 'org.apache.httpcomponents:httpmime:4.4.1' 
+        runtime 'org.apache.httpcomponents:httpclient-cache:4.4.1' 
+
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.29'
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'

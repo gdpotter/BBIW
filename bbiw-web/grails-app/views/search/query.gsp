@@ -6,6 +6,7 @@
 </head>
 
 <body>
+    <p>${result}</p>
     <div class="page-header">
         <h2>Search Results</h2>
         <h2 class="lead">

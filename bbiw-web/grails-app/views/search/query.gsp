@@ -22,8 +22,8 @@
             <g:each in="${results}" var="result">
                 <article class="search-result row">
                     <div class="col-xs-12 col-sm-12 col-md-3">
-                        <a href="${result.url[0]}" title="Lorem ipsum" class="thumbnail">
-                            <g:resultImage publisher="${result.publisher[0]}"/>
+                        <a href="${result.url[0]}" title="${result.publisher[0]}" class="thumbnail">
+                            <g:resultImage publisher="${result.publisher[0]}" category="${result.category}"/>
                         </a>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-9">

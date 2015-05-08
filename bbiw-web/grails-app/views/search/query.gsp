@@ -23,7 +23,7 @@
                 <article class="search-result row">
                     <div class="col-xs-12 col-sm-12 col-md-3">
                         <a href="${result.url[0]}" title="Lorem ipsum" class="thumbnail">
-                            <img src="${resource(dir:'images', file:'justice.png')}" alt="Department of Justice" />
+                            <g:resultImage publisher="${result.publisher[0]}"/>
                         </a>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-9">

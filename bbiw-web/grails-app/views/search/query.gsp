@@ -47,7 +47,7 @@
                         </g:if>
                         <g:else>
                             <li>
-                                <g:link controller="${params.controller}" action="${params.action}" params="${params + [start: params.start - 10]}">
+                                <g:link controller="${params.controller}" action="${params.action}" params="${params + [start: start - 10]}">
                                     <span>&laquo;</span>
                                 </g:link>
                             </li>
@@ -68,7 +68,7 @@
                         </g:if>
                         <g:else>
                             <li>
-                                <g:link controller="${params.controller}" action="${params.action}" params="${params + [start: params.start + 10]}">
+                                <g:link controller="${params.controller}" action="${params.action}" params="${params + [start: start + 10]}">
                                     <span>&raquo;</span>
                                 </g:link>
                             </li>

@@ -9,14 +9,14 @@ class SearchService {
 
     def grailsApplication
 
-    SolrDocumentList search(String q) {
+    SolrDocumentList search(String q, int start = 0) {
         HttpSolrServer solr = new HttpSolrServer(grailsApplication.config.solr.url);
 
         SolrQuery query = new SolrQuery();
-        query.setQuery("cdc");
-        query.addFilterQuery("publisher:data.cdc.gov");
-        query.setFields("title","desc", "publisher", "url");
-        query.setStart(0);
+        query.setQuery(q);
+//        query.addFilterQuery("publisher:data.cdc.gov");
+//        query.setFields("title","desc", "publisher", "url");
+        query.setStart(start);
         query.set("defType", "edismax");
 
         QueryResponse response = solr.query(query);

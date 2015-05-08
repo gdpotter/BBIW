@@ -16,6 +16,8 @@ class SearchController {
     }
 
     def query() {
-        [query: params.q, results: searchService.search(params.q)]
+        int start = params.start as int
+        String q = params.q
+        [query: params.q, results: searchService.search(q, start ?: 0)]
     }
 }

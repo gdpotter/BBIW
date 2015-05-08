@@ -9,7 +9,7 @@
     <div class="page-header">
         <h2>Search Results</h2>
         <h2 class="lead">
-            <strong class="text-danger">${results.size()}</strong> results were found for the query of <strong class="text-danger">${query}</strong>
+            <strong class="text-danger">${results.getNumFound()}</strong> results were found for the query of <strong class="text-danger">${query}</strong>
         </h2>
     </div>
     <div class="row">
@@ -33,6 +33,49 @@
                     <span class="clearfix border"></span>
                 </article>
             </g:each>
+
+            <g:if test="${results.size() < results.getNumFound()}">
+                <g:set var="page" value="${results.start / 10}" />
+                <div class="text-center">
+                    <ul class="pagination">
+                        <g:if test="${page == 0}">
+                            <li class="disabled">
+                                <span>
+                                    <span aria-hidden="true">&laquo;</span>
+                                </span>
+                            </li>
+                        </g:if>
+                        <g:else>
+                            <li>
+                                <g:link controller="${params.controller}" action="${params.action}" params="${params + [start: params.start - 10]}">
+                                    <span>&laquo;</span>
+                                </g:link>
+                            </li>
+                        </g:else>
+                        <g:each in="${1..(results.getNumFound() / 10 + 1)}" var="i">
+                            <li class="${page + 1== i ? 'active' : ''}">
+                                <g:link controller="${params.controller}" action="${params.action}" params="${params + [start: (i - 1) * 10]}">
+                                    <span>${i}</span>
+                                </g:link>
+                            </li>
+                        </g:each>
+                        <g:if test="${page == results.getNumFound() / 10}">
+                            <li class="disabled">
+                                <span>
+                                    <span aria-hidden="true">&laquo;</span>
+                                </span>
+                            </li>
+                        </g:if>
+                        <g:else>
+                            <li>
+                                <g:link controller="${params.controller}" action="${params.action}" params="${params + [start: params.start + 10]}">
+                                    <span>&raquo;</span>
+                                </g:link>
+                            </li>
+                        </g:else>
+                    </ul>
+                </div>
+            </g:if>
         </div>
     </div>
 </body>

@@ -11,6 +11,11 @@
         <h2 class="lead">
             <strong class="text-danger">${results.getNumFound()}</strong> results were found for the query of <strong class="text-danger">${query}</strong>
         </h2>
+        <g:if test="${suggest != null}">
+        <h2 class="lead">
+            We detect a misspelling. Try searching for <a href='/bbiw-web/query?q=${suggest}'><strong class="text-info">${suggest}</strong></a>?
+        </h2>
+        </g:if>
     </div>
     <div class="row">
         <div class="col-lg-3">

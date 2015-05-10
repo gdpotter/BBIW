@@ -1,31 +1,48 @@
 package bbiw.web
 
-import groovy.util.logging.Log4j
 import org.apache.solr.client.solrj.SolrQuery
-import org.apache.solr.client.solrj.impl.HttpSolrServer
+import org.apache.solr.client.solrj.impl.HttpSolrClient
 import org.apache.solr.client.solrj.response.QueryResponse
-import org.apache.solr.client.solrj.response.SpellCheckResponse
-import org.apache.solr.client.solrj.response.SpellCheckResponse.Suggestion
-import org.apache.solr.common.SolrDocumentList
 
 class SearchService {
 
     def grailsApplication
 
-    QueryResponse search(String q, int start = 0) {
-        HttpSolrServer solr = new HttpSolrServer(grailsApplication.config.solr.url);
+    QueryResponse search(String q, int start = 0, List<String> categories = [], List<String> publishers) {
+        HttpSolrClient solr = new HttpSolrClient(grailsApplication.config.solr.url);
 
         SolrQuery query = new SolrQuery();
         query.setQuery(q);
         query.set("qt", "/select");
         query.set("spellcheck", "on");
-//        query.addFilterQuery("publisher:data.cdc.gov");
-//        query.setFields("title","desc", "publisher", "url");
+        if (categories) {
+            query.addFilterQuery("category:${categories.join(' OR ')}")
+        }
+        if (publishers) {
+            query.addFilterQuery("publisher:${publishers.join(' OR ')}")
+        }
+
         query.setStart(start);
         query.set("defType", "edismax");
 
         QueryResponse response = solr.query(query);
 
         return response;
+    }
+
+    List<String> facetQuery(String facet) {
+        HttpSolrClient solr = new HttpSolrClient(grailsApplication.config.solr.url);
+        SolrQuery query = new SolrQuery();
+        query.addFacetField(facet)
+        QueryResponse response = solr.query(query)
+        response.getFacetFields().get(0).getValues().collect { it.getName() }
+    }
+
+    List<String> getCategories() {
+        facetQuery('category')
+    }
+
+    List<String> getPublishers() {
+        facetQuery('publisher')
     }
 }

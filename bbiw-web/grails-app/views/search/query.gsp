@@ -16,16 +16,24 @@
                 results were found for the query of
             </h3>
             <g:form class="input-group col-xs-6 col-xs-offset-3" action="query" method="get">
-                <input type="text" value="${query}" class="form-control col-xs-6" name="q" />
+                <g:hiddenField name="start" value="${start}" />
+                <g:if test="${params.category}">
+                    <g:hiddenField name="category" value="${params.category}" />
+                </g:if>
+                <g:if test="${params.publisher}">
+                    <g:hiddenField name="publisher" value="${params.publisher}" />
+                </g:if>
+
+                <g:textField value="${query}" class="form-control col-xs-6" name="q" />
                 <span class="input-group-btn">
-                    <button class="btn btn-success" type="button">
+                    <button class="btn btn-success">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                     </button>
                 </span>
             </g:form>
 			<g:if test="${suggest != null}">
         	<h2 class="lead">
-            	We detect a misspelling. Try searching for <a href='/bbiw-web/query?q=${suggest}'><strong class="text-info">${suggest}</strong></a>?
+            	We detect a misspelling. Try searching for <g:link action="query" params="${params + [q: suggest]}"><strong class="text-info">${suggest}</strong></g:link>?
 	        </h2>
     	    </g:if>
         </div>
@@ -33,11 +41,24 @@
     <div class="row">
         <div class="col-lg-3">
             <div class="well">
-                <h3>Category</h3>
-                <g:select class="form-control select2" multiple="multiple" from="${categories}" name="category">
-                    <option value="AL">Alabama</option>
-                    <option value="WY">Wyoming</option>
-                </g:select>
+                <g:form action="query" method="get">
+                    <g:hiddenField name="q" value="${query}" />
+                    <g:hiddenField name="start" value="${start}" />
+                    <div class="form-group">
+                        <label for="category">Category:</label>
+                        <g:select class="form-control select2" multiple="multiple" from="${allCategories}" name="category" value="${params.list('category')}" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publisher">Publisher:</label>
+                        <g:select class="form-control select2" multiple="multiple" from="${allPublishers}" name="publisher" value="${params.list('publisher')}" />
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary">Filter</button>
+                    </div>
+
+                </g:form>
             </div>
         </div>
         <div class="col-lg-9">

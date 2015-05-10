@@ -20,7 +20,7 @@ class SearchController {
         int start = (params.start ?: 0) as int
         String q = params.q
 
-        QueryResponse response = searchService.search(q, start)
+        QueryResponse response = searchService.search(q, start, params.list('category'), params.list('publisher'))
         SolrDocumentList results = response.getResults()
 
         //Check if query was spelled correctly
@@ -39,6 +39,14 @@ class SearchController {
             //refine spelling suggestion?s
         }
 
-        [query: params.q, results: results, start: start, categories: searchService.getCategories(), suggest: suggest]
+        [
+                allCategories: searchService.getCategories(),
+                allPublishers: searchService.getPublishers(),
+
+                query: params.q,
+                results: results,
+                start: start,
+                suggest: suggest
+        ]
     }
 }

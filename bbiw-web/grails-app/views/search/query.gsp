@@ -16,7 +16,6 @@
                 results were found for the query of
             </h3>
             <g:form class="input-group col-xs-6 col-xs-offset-3" action="query" method="get">
-                <g:hiddenField name="start" value="${start}" />
                 <g:if test="${params.category}">
                     <g:hiddenField name="category" value="${params.category}" />
                 </g:if>
@@ -33,7 +32,7 @@
             </g:form>
 			<g:if test="${suggest != null}">
         	<h2 class="lead">
-            	Did you mean <g:link action="query" params="${params + [q: suggest]}"><strong class="text-info">${suggest}</strong></g:link>?
+            	Did you mean <g:link action="query" params="${params + [q: suggest] - [start: params.start]}"><strong class="text-info">${suggest}</strong></g:link>?
 	        </h2>
     	    </g:if>
         </div>
@@ -43,7 +42,6 @@
             <div class="well">
                 <g:form action="query" method="get">
                     <g:hiddenField name="q" value="${query}" />
-                    <g:hiddenField name="start" value="${start}" />
                     <div class="form-group">
                         <label for="category">Category:</label>
                         <g:select class="form-control select2" multiple="multiple" optionKey="key" optionValue="value"

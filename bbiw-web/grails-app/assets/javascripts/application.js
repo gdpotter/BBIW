@@ -7,5 +7,10 @@
 //
 //= require jquery
 //= require bootstrap
+//= require select2.js
 //= require_tree .
 //= require_self
+
+$(function() {
+    $('.select2').select2();
+});

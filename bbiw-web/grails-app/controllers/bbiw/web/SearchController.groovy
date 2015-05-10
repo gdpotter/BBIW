@@ -39,6 +39,6 @@ class SearchController {
             //refine spelling suggestion?s
         }
 
-        [query: params.q, results: results, start: start, suggest: suggest]
+        [query: params.q, results: results, start: start, categories: searchService.getCategories(), suggest: suggest]
     }
 }

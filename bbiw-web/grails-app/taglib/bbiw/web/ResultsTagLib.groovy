@@ -55,7 +55,7 @@ class ResultsTagLib {
         'Substance Abuse & Mental Health Services Administration': 'HealthData.png',
         'Terra-Gen Sierra Holdings, LLC': 'DepartmentOfEnergy.jpeg',
         'Oski Energy LLC': 'DepartmentOfEnergy.jpeg'
-    ].withDefault { '' }
+    ]
 
     def default_images = [
         'Energy': 'DepartmentOfEnergy.jpeg',
@@ -68,11 +68,11 @@ class ResultsTagLib {
 
     def resultImage = { attrs, body ->
         def image = images[attrs.publisher]
-        if(image == '')
+        if(!image)
             image = default_images[attrs.category[-1]]
 
         out << '<img src="'
         out << g.resource(dir:'images', file:image)
-        out << '" alt="${attrs.publisher}" />'
+        out << "\" alt=\"${attrs.publisher}\" />"
     }
 }

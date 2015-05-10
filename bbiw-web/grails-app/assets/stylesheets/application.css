@@ -8,6 +8,8 @@
 * compiled file, but it's generally better to create a new file per style scope.
 *
 *= require bootstrap-flatly.css
+*= require select2.css
+*= require select2-bootstrap.css
 *= require_self
 */
 

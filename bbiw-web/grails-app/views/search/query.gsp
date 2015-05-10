@@ -8,19 +8,36 @@
 <body>
     <div class="page-header">
         <h2>Search Results</h2>
-        <h2 class="lead">
-            <strong class="text-danger">${results.getNumFound()}</strong> results were found for the query of <strong class="text-danger">${query}</strong>
-        </h2>
-        <g:if test="${suggest != null}">
-        <h2 class="lead">
-            We detect a misspelling. Try searching for <a href='/bbiw-web/query?q=${suggest}'><strong class="text-info">${suggest}</strong></a>?
-        </h2>
-        </g:if>
+        <div class="text-center">
+            <h3 class="lead">
+                <strong class="text-danger">
+                    ${results.getNumFound()}
+                </strong>
+                results were found for the query of
+            </h3>
+            <g:form class="input-group col-xs-6 col-xs-offset-3" action="query" method="get">
+                <input type="text" value="${query}" class="form-control col-xs-6" name="q" />
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="button">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </span>
+            </g:form>
+			<g:if test="${suggest != null}">
+        	<h2 class="lead">
+            	We detect a misspelling. Try searching for <a href='/bbiw-web/query?q=${suggest}'><strong class="text-info">${suggest}</strong></a>?
+	        </h2>
+    	    </g:if>
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-3">
             <div class="well">
-                Filters
+                <h3>Category</h3>
+                <g:select class="form-control select2" multiple="multiple" from="${categories}" name="category">
+                    <option value="AL">Alabama</option>
+                    <option value="WY">Wyoming</option>
+                </g:select>
             </div>
         </div>
         <div class="col-lg-9">

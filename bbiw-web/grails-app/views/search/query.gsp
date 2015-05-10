@@ -60,6 +60,8 @@
 
             <g:if test="${results.size() < results.getNumFound()}">
                 <g:set var="page" value="${results.start / 10}" />
+                <g:set var="page_lower" value="${page>5?page-4:1}" />
+                <g:set var="page_upper" value="${page<results.getNumFound()/10 - 5?page+5:results.getNumFound()/10+1}" />
                 <div class="text-center">
                     <ul class="pagination">
                         <g:if test="${page == 0}">
@@ -76,7 +78,7 @@
                                 </g:link>
                             </li>
                         </g:else>
-                        <g:each in="${1..(results.getNumFound() / 10 + 1)}" var="i">
+                        <g:each in="${page_lower..page_upper}" var="i">
                             <li class="${page + 1== i ? 'active' : ''}">
                                 <g:link controller="${params.controller}" action="${params.action}" params="${params + [start: (i - 1) * 10]}">
                                     <span>${i}</span>

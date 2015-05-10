@@ -17,7 +17,6 @@ class SearchService {
 
         SolrQuery query = new SolrQuery();
         query.setQuery(q);
-        query.set("rows", "150");
         query.set("qt", "/select");
         query.set("spellcheck", "on");
 //        query.addFilterQuery("publisher:data.cdc.gov");

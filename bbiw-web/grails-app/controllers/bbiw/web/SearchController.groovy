@@ -36,7 +36,7 @@ class SearchController {
             if(!scResponse.isCorrectlySpelled()) {
             	suggest = scResponse.getCollatedResult()
             }
-                
+            //refine spelling suggestion?s
         }
 
         [query: params.q, results: results, start: start, suggest: suggest]

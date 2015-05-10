@@ -33,6 +33,25 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-9">
                         <h3><a href="${result.url[0]}" title="">${result.title[0]}</a></h3>
+                        <div class='btn-group'>
+                            <a class="btn btn-info btn-xs">Links</a>
+                            <a href="#" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                            <!--Dataset Links-->
+                            <g:if test="${result.links}">
+                                <g:each in="${result.links}" var="link">
+                                <li><a href="${link}">${link}</a></li>
+                                </g:each>
+                            </g:if>
+                            <g:else>
+                                <li><a>None provided</a></li>
+                            </g:else>
+                        </ul>
+                        </div>
+
+                        <g:each in="${result.category}">
+                            <span class="label label-default">${it}</span>
+                        </g:each>
                         <p>${result.desc.join(' ')}</p>
                     </div>
                     <span class="clearfix border"></span>

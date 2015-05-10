@@ -39,9 +39,10 @@ class SearchController {
             //refine spelling suggestion?s
         }
 
+        SearchService.FilterData filterData = searchService.getFilterData(q)
         [
-                allCategories: searchService.getCategories(),
-                allPublishers: searchService.getPublishers(),
+                allCategories: filterData.categories,
+                allPublishers: filterData.publishers,
 
                 query: params.q,
                 results: results,

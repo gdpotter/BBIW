@@ -12,37 +12,41 @@ class SearchService {
         HttpSolrClient solr = new HttpSolrClient(grailsApplication.config.solr.url);
 
         SolrQuery query = new SolrQuery();
-        query.setQuery(q);
-        query.set("qt", "/select");
-        query.set("spellcheck", "on");
+        query.setQuery(q)
+        query.set("qt", "/select")
+        query.set("spellcheck", "on")
         if (categories) {
-            query.addFilterQuery("category:${categories.join(' OR ')}")
+            query.addFilterQuery("category:${categories.collect { "\"${it}\"" }.join(' OR ')}")
         }
         if (publishers) {
-            query.addFilterQuery("publisher:${publishers.join(' OR ')}")
+            query.addFilterQuery("publisher:${publishers.collect { "\"${it}\"" }.join(' OR ')}")
         }
 
         query.setStart(start);
-        query.set("defType", "edismax");
+        query.set("defType", "edismax")
 
         QueryResponse response = solr.query(query);
 
         return response;
     }
 
-    List<String> facetQuery(String facet) {
+    FilterData getFilterData(String q) {
         HttpSolrClient solr = new HttpSolrClient(grailsApplication.config.solr.url);
         SolrQuery query = new SolrQuery();
-        query.addFacetField(facet)
+        query.setQuery(q)
+        query.set("qt", "/select")
+        query.addFacetField("category")
+        query.addFacetField("publisher")
+        query.set("defType", "edismax")
         QueryResponse response = solr.query(query)
-        response.getFacetFields().get(0).getValues().collect { it.getName() }
+        return new FilterData(
+                categories: response.getFacetField("category")?.getValues()?.collectEntries { [it.getName(), "${it.getName()} (${it.getCount()})"] },
+                publishers: response.getFacetField("publisher")?.getValues()?.collectEntries { [it.getName(), "${it.getName()} (${it.getCount()})"] }
+        )
     }
 
-    List<String> getCategories() {
-        facetQuery('category')
-    }
-
-    List<String> getPublishers() {
-        facetQuery('publisher')
+    static class FilterData {
+        Map<String, String> categories
+        Map<String, String> publishers
     }
 }

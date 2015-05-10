@@ -33,7 +33,7 @@
             </g:form>
 			<g:if test="${suggest != null}">
         	<h2 class="lead">
-            	We detect a misspelling. Try searching for <g:link action="query" params="${params + [q: suggest]}"><strong class="text-info">${suggest}</strong></g:link>?
+            	Did you mean <g:link action="query" params="${params + [q: suggest]}"><strong class="text-info">${suggest}</strong></g:link>?
 	        </h2>
     	    </g:if>
         </div>
@@ -46,12 +46,14 @@
                     <g:hiddenField name="start" value="${start}" />
                     <div class="form-group">
                         <label for="category">Category:</label>
-                        <g:select class="form-control select2" multiple="multiple" from="${allCategories}" name="category" value="${params.list('category')}" />
+                        <g:select class="form-control select2" multiple="multiple" optionKey="key" optionValue="value"
+                                  from="${allCategories}" name="category" value="${params.list('category')}" />
                     </div>
 
                     <div class="form-group">
                         <label for="publisher">Publisher:</label>
-                        <g:select class="form-control select2" multiple="multiple" from="${allPublishers}" name="publisher" value="${params.list('publisher')}" />
+                        <g:select class="form-control select2" multiple="multiple" optionKey="key" optionValue="value"
+                                  from="${allPublishers}" name="publisher" value="${params.list('publisher')}" />
                     </div>
 
                     <div class="form-group">

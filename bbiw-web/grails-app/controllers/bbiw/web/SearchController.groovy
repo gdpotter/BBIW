@@ -1,9 +1,5 @@
 package bbiw.web
 
-import org.apache.solr.client.solrj.impl.HttpSolrServer
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.SpellCheckResponse;
 import org.apache.solr.common.SolrDocumentList;
@@ -20,7 +16,7 @@ class SearchController {
         int start = (params.start ?: 0) as int
         String q = params.q
 
-        QueryResponse response = searchService.search(q, start)
+        QueryResponse response = searchService.search(q, start, params.list('category'), params.list('publisher'))
         SolrDocumentList results = response.getResults()
 
         //Check if query was spelled correctly
@@ -39,6 +35,15 @@ class SearchController {
             //refine spelling suggestion?s
         }
 
-        [query: params.q, results: results, start: start, categories: searchService.getCategories(), suggest: suggest]
+        SearchService.FilterData filterData = searchService.getFilterData(q)
+        [
+                allCategories: filterData.categories,
+                allPublishers: filterData.publishers,
+
+                query: params.q,
+                results: results,
+                start: start,
+                suggest: suggest
+        ]
     }
 }
